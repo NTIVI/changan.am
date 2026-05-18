@@ -1,119 +1,203 @@
-export type CarColor = {
-  name: string;
-  hex: string;
-};
-
-export type Car = {
-  id: string;
-  name: string;
-  model: string;
-  price: number;
-  type: string; // 'Кроссовер', 'Седан', 'Внедорожник'
-  drive: string; // 'FWD', 'AWD'
-  specs: {
-    power: string;
-    acceleration: string;
-    consumption: string;
-  };
-  colors: CarColor[];
-  images: {
-    main: string;
-    gallery: string[];
-  };
-  features: string[];
-};
+import { Car } from "@/types";
 
 export const MOCK_CARS: Car[] = [
   {
-    id: "uni-k",
-    name: "CHANGAN UNI-K",
-    model: "UNI-K",
-    price: 38000000, // in AMD (example)
-    type: "Кроссовер",
+    id: "cs75plus",
+    name: "Changan CS75 Plus",
+    model: "CS75 Plus",
+    price: 12500000,
+    type: "SUV",
     drive: "AWD",
+    year: 2025,
     specs: {
-      power: "226 л.с.",
-      acceleration: "8.1 с",
-      consumption: "8.4 л/100 км",
+      power: "178 л.с.",
+      acceleration: "8.9 с",
+      consumption: "7.5 л/100 км",
+      engine: "1.5L Turbo",
+      transmission: "8-АКПП AISIN",
+      weight: "1625 кг"
     },
     colors: [
-      { name: "Белый", hex: "#FFFFFF" },
-      { name: "Черный", hex: "#000000" },
-      { name: "Серый", hex: "#5E5E5E" },
-      { name: "Синий", hex: "#1D3A5F" },
+      { name: "Белый перламутр", hex: "#FFFFFF" },
+      { name: "Черный металлик", hex: "#0F0F10" },
+      { name: "Темно-серый", hex: "#4A4D50" }
     ],
     images: {
-      main: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
+      main: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
       gallery: [
-        "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
-      ],
+        "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop"
+      ]
     },
-    features: ["Панорамная крыша", "Адаптивный круиз-контроль", "Премиум аудиосистема"],
+    features: [
+      "Система предотвращения столкновений",
+      "Адаптивный круиз-контроль (ACC)",
+      "Камеры кругового обзора 360°",
+      "Панорамная крыша с люком"
+    ]
   },
   {
     id: "uni-t",
-    name: "CHANGAN UNI-T",
+    name: "Changan UNI-T",
     model: "UNI-T",
-    price: 32000000,
+    price: 11000000,
     type: "Кроссовер",
     drive: "FWD",
+    year: 2025,
     specs: {
       power: "167 л.с.",
       acceleration: "9.2 с",
       consumption: "6.5 л/100 км",
+      engine: "1.5L Blue Core",
+      transmission: "7-DCT (мокрое сцепление)",
+      weight: "1500 кг"
     },
     colors: [
-      { name: "Белый", hex: "#FFFFFF" },
-      { name: "Серый космос", hex: "#3A3A3C" },
+      { name: "Спортивный Серый", hex: "#3A3A3C" },
+      { name: "Кристально Белый", hex: "#FAFAFA" },
+      { name: "Глубокий Синий", hex: "#1A365D" }
     ],
     images: {
       main: "https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=2074&auto=format&fit=crop",
-      gallery: [],
+      gallery: [
+        "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop"
+      ]
     },
-    features: ["Спортивный дизайн", "Камеры 360", "Беспроводная зарядка"],
+    features: [
+      "Уникальная радиаторная решетка без рамок",
+      "Выдвижные ручки дверей",
+      "Интеллектуальный автопарковщик (APA 5.0)",
+      "Спортивный спойлер V-образного типа"
+    ]
   },
   {
-    id: "cs55plus",
-    name: "CHANGAN CS55 PLUS",
-    model: "CS55 PLUS",
-    price: 29000000,
-    type: "Кроссовер",
+    id: "uni-v",
+    name: "Changan UNI-V",
+    model: "UNI-V",
+    price: 10500000,
+    type: "Седан",
     drive: "FWD",
+    year: 2025,
     specs: {
       power: "181 л.с.",
-      acceleration: "8.3 с",
-      consumption: "5.9 л/100 км",
+      acceleration: "7.1 с",
+      consumption: "6.2 л/100 км",
+      engine: "1.5L Turbo Blue Core",
+      transmission: "7-DCT",
+      weight: "1400 кг"
     },
     colors: [
-      { name: "Красный", hex: "#8B0000" },
-      { name: "Белый", hex: "#FFFFFF" },
+      { name: "Матовый Серый (Shadow)", hex: "#4C515B" },
+      { name: "Огненно-Красный", hex: "#C00000" },
+      { name: "Иссиня-Черный", hex: "#0B0C10" }
     ],
     images: {
-      main: "https://images.unsplash.com/photo-1631269550774-7d5db1241a7e?q=80&w=2070&auto=format&fit=crop",
-      gallery: [],
+      main: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=2070&auto=format&fit=crop",
+      gallery: [
+        "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=2070&auto=format&fit=crop"
+      ]
     },
-    features: ["Компактный", "Экономичный", "Интеллектуальные системы помощи"],
+    features: [
+      "Активный задний спойлер (выдвижной)",
+      "Спортивный режим разгона SUPER RACE",
+      "Интегрированная выхлопная система",
+      "Скрытые дверные ручки с подсветкой"
+    ]
+  },
+  {
+    id: "alsvin",
+    name: "Changan Alsvin",
+    model: "Alsvin",
+    price: 7900000,
+    type: "Седан",
+    drive: "FWD",
+    year: 2025,
+    specs: {
+      power: "107 л.с.",
+      acceleration: "11.5 с",
+      consumption: "5.6 л/100 км",
+      engine: "1.5L Атмосферный",
+      transmission: "5-DCT",
+      weight: "1100 кг"
+    },
+    colors: [
+      { name: "Кристально-Белый", hex: "#FFFFFF" },
+      { name: "Серебристый металлик", hex: "#C0C0C0" },
+      { name: "Стильный Синий", hex: "#2E5E8A" }
+    ],
+    images: {
+      main: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=2070&auto=format&fit=crop",
+      gallery: []
+    },
+    features: [
+      "Камера заднего вида со статической разметкой",
+      "Электронный круиз-контроль",
+      "Люк в крыше с электроприводом",
+      "Мультимедийная система с экраном 7\""
+    ]
   },
   {
     id: "lamore",
-    name: "CHANGAN LAMORE",
-    model: "LAMORE",
-    price: 25000000,
-    type: "Седан",
+    name: "Changan Lamore",
+    model: "Lamore",
+    price: 13000000,
+    type: "Минивэн",
     drive: "FWD",
+    year: 2025,
     specs: {
       power: "166 л.с.",
-      acceleration: "7.1 с",
-      consumption: "5.0 л/100 км",
+      acceleration: "8.2 с",
+      consumption: "5.9 л/100 км",
+      engine: "1.5L Turbo",
+      transmission: "7-DCT",
+      weight: "1720 кг"
     },
     colors: [
-      { name: "Серебристый", hex: "#C0C0C0" },
-      { name: "Черный", hex: "#000000" },
+      { name: "Платиновый Серый", hex: "#7E8287" },
+      { name: "Жемчужно-Белый", hex: "#F3F4F6" },
+      { name: "Темно-Синий", hex: "#1C2434" }
     ],
     images: {
-      main: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
-      gallery: [],
+      main: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=2070&auto=format&fit=crop",
+      gallery: []
     },
-    features: ["Элегантный дизайн", "Просторный салон", "LED оптика"],
+    features: [
+      "Просторная 7-местная компоновка (2+2+3)",
+      "Сдвижные боковые двери с электроприводом",
+      "Панорамное остекление крыши",
+      "Система голосового управления функциями салона"
+    ]
   },
+  {
+    id: "hunter",
+    name: "Changan Hunter",
+    model: "Hunter",
+    price: 14500000,
+    type: "Пикап",
+    drive: "AWD",
+    year: 2025,
+    specs: {
+      power: "150 л.с.",
+      acceleration: "12.5 с",
+      consumption: "8.2 л/100 км",
+      engine: "2.0T Дизель",
+      transmission: "6-МКПП / 8-АКПП",
+      weight: "2050 кг"
+    },
+    colors: [
+      { name: "Пустынный песок", hex: "#D2B48C" },
+      { name: "Военный зеленый", hex: "#556B2F" },
+      { name: "Матовый черный", hex: "#1C1C1C" }
+    ],
+    images: {
+      main: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
+      gallery: []
+    },
+    features: [
+      "Рамная конструкция повышенной прочности",
+      "Подключаемый полный привод с блокировкой дифференциала",
+      "Грузоподъемность до 1000 кг",
+      "Защитное покрытие кузова повышенной стойкости"
+    ]
+  }
 ];
