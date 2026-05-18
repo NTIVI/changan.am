@@ -1,11 +1,75 @@
 "use client";
 
 import { Header } from "@/components/header";
-import { Users, ShoppingBag, CarFront, TrendingUp } from "lucide-react";
+import { Users, ShoppingBag, CarFront, TrendingUp, ShieldAlert, ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const { user, isAdmin, loading, signOut } = useAuth();
+  const router = useRouter();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+          <p className="text-gray-500 font-medium">Проверка прав доступа...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Restrict access for non-admins (clients or guests)
+  if (!user || !isAdmin) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-[#050505] text-black dark:text-white flex flex-col justify-center items-center px-6 relative overflow-hidden">
+        <Header />
+        
+        {/* Decorative alert glow background */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-red-500/10 dark:bg-red-950/5 rounded-full blur-3xl -z-10" />
+
+        <div className="w-full max-w-lg mt-24">
+          <div className="bg-white/80 dark:bg-[#111]/80 backdrop-blur-xl rounded-3xl p-8 md:p-10 shadow-2xl border border-red-200 dark:border-red-950/30 text-center">
+            <div className="w-20 h-20 rounded-2xl bg-red-50 dark:bg-red-950/20 flex items-center justify-center mx-auto mb-6 border border-red-100 dark:border-red-900/30">
+              <ShieldAlert className="w-10 h-10 text-red-600 dark:text-red-500" />
+            </div>
+            
+            <h1 className="text-3xl font-black tracking-tight text-black dark:text-white mb-4">
+              Доступ ограничен
+            </h1>
+            
+            <p className="text-gray-600 dark:text-gray-400 mb-8 text-sm leading-relaxed">
+              У вас нет прав для просмотра этого раздела. Панель управления доступна только для администраторов и сотрудников автосалона CHANGAN Armenia.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button 
+                onClick={() => router.push("/")}
+                variant="outline"
+                className="rounded-xl h-12 px-6 font-semibold border-2 dark:border-gray-800 flex items-center justify-center gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                На главную страницу
+              </Button>
+              <Button 
+                onClick={async () => {
+                  await signOut();
+                  router.push("/login");
+                }}
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 px-6 font-semibold"
+              >
+                Войти как администратор
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black text-black dark:text-white">

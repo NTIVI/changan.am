@@ -1,10 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
 import { Button } from "./ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { useRef } from "react";
+import { CarCanvas } from "./3d/car-canvas";
 
 export function Hero() {
   const ref = useRef(null);
@@ -16,43 +16,19 @@ export function Hero() {
   const yText = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacityText = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
-  // Cars moving left to right
-  const xCars = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
   return (
     <section
       ref={ref}
       className="relative h-screen w-full overflow-hidden bg-[#f8f9fa] dark:bg-[#0a0a0a] flex items-center justify-center pt-20"
     >
-      {/* Moving Background Cars */}
-      <motion.div
-        style={{ x: xCars }}
-        className="absolute inset-0 z-0 flex items-center justify-center opacity-80 dark:opacity-40"
-      >
-        <motion.div
-          animate={{ x: ["-20%", "10%"] }}
-          transition={{
-            repeat: Infinity,
-            repeatType: "mirror",
-            duration: 20,
-            ease: "linear",
-          }}
-          className="relative w-[150%] h-[60vh] flex gap-8 items-center"
-        >
-          {/* We use highly aesthetic placeholder gradient shapes to simulate cars with motion blur for now, 
-              until real Changan transparent PNGs are added */}
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="w-[800px] h-[300px] bg-gradient-to-r from-blue-500/20 to-purple-500/20 dark:from-blue-500/10 dark:to-purple-500/10 rounded-[100px] blur-3xl"
-            />
-          ))}
-          <div className="absolute inset-0 flex gap-20 items-center justify-center">
-             <Image width={800} height={500} src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?q=80&w=2115&auto=format&fit=crop" className="w-[800px] h-auto object-cover rounded-3xl shadow-2xl opacity-50 mix-blend-overlay" alt="Car 1" />
-             <Image width={800} height={500} src="https://images.unsplash.com/photo-1605810730811-09d13e9a59b6?q=80&w=2070&auto=format&fit=crop" className="w-[800px] h-auto object-cover rounded-3xl shadow-2xl opacity-50 mix-blend-overlay" alt="Car 2" />
-          </div>
-        </motion.div>
-      </motion.div>
+      {/* 3D Rotating Background Car */}
+      <div className="absolute inset-0 z-0 w-full h-full opacity-70 dark:opacity-40 select-none pointer-events-none">
+        <CarCanvas color="#1D3A5F" autoRotate={true} enableZoom={false} enableRotate={false} />
+      </div>
+
+      {/* Decorative Blur Backgrounds */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-purple-500/10 dark:bg-cyan-500/5 rounded-full blur-3xl -z-10" />
 
       <motion.div
         style={{ y: yText, opacity: opacityText }}

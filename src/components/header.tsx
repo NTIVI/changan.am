@@ -4,14 +4,16 @@ import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ShoppingCart, User } from "lucide-react";
+import { ShoppingCart, User, LogIn } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const items = useCartStore((state) => state.items);
   const [mounted, setMounted] = useState(false);
+  const { user, profile } = useAuth();
 
   useEffect(() => {
     setMounted(true);
@@ -21,6 +23,12 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Determine where the user icon/button routes to
+  const getProfileRoute = () => {
+    if (!user) return "/login";
+    return profile?.role === "admin" ? "/admin" : "/profile";
+  };
 
   return (
     <motion.header
@@ -43,13 +51,16 @@ export function Header() {
       </Link>
 
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-        <Link href="#models" className="hover:text-blue-600 transition-colors">
+        <Link href="/cars" className="hover:text-blue-600 transition-colors font-bold text-blue-600 dark:text-blue-400">
+          Машины
+        </Link>
+        <Link href="/#models" className="hover:text-blue-600 transition-colors">
           Модели
         </Link>
-        <Link href="#benefits" className="hover:text-blue-600 transition-colors">
+        <Link href="/#benefits" className="hover:text-blue-600 transition-colors">
           Преимущества
         </Link>
-        <Link href="#contacts" className="hover:text-blue-600 transition-colors">
+        <Link href="/#contacts" className="hover:text-blue-600 transition-colors">
           Контакты
         </Link>
       </nav>
@@ -63,9 +74,28 @@ export function Header() {
             </span>
           )}
         </Link>
-        <Link href="/admin" className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors">
-          <User className="w-5 h-5 text-black dark:text-white" />
-        </Link>
+        
+        {mounted && (
+          <Link 
+            href={getProfileRoute()} 
+            className="flex items-center gap-1.5 px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-all text-xs font-semibold"
+          >
+            {user ? (
+              <>
+                <User className="w-4 h-4 text-black dark:text-white" />
+                <span className="hidden sm:inline text-black dark:text-white">
+                  {profile?.name ? profile.name.split(" ")[0] : "Кабинет"}
+                </span>
+              </>
+            ) : (
+              <>
+                <LogIn className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span className="text-blue-600 dark:text-blue-400">Войти</span>
+              </>
+            )}
+          </Link>
+        )}
+
         <ThemeToggle />
       </div>
     </motion.header>

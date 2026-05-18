@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, OrbitControls, PresentationControls, Stage, useGLTF, Float } from "@react-three/drei";
+import { OrbitControls, PresentationControls, Stage, Float } from "@react-three/drei";
 import { Suspense, useRef } from "react";
 import * as THREE from "three";
 
@@ -57,23 +57,42 @@ function AbstractCarPlaceholder({ color }: { color: string }) {
   );
 }
 
-export function CarCanvas({ color = "#ffffff" }: { color?: string }) {
+export function CarCanvas({ 
+  color = "#ffffff",
+  autoRotate = false,
+  enableZoom = true,
+  enableRotate = true,
+}: { 
+  color?: string;
+  autoRotate?: boolean;
+  enableZoom?: boolean;
+  enableRotate?: boolean;
+}) {
   return (
     <Canvas shadows camera={{ position: [5, 2, 5], fov: 45 }}>
       <Suspense fallback={null}>
         <Stage environment="city" intensity={0.6}>
           <PresentationControls 
-            global 
-            zoom={0.8} 
+            global={enableRotate} 
+            zoom={enableZoom ? 0.8 : 1.0} 
             rotation={[0, -Math.PI / 4, 0]} 
-            polar={[-Math.PI / 4, Math.PI / 4]} 
-            azimuth={[-Math.PI / 2, Math.PI / 2]}
+            polar={enableRotate ? [-Math.PI / 4, Math.PI / 4] : [0, 0]} 
+            azimuth={enableRotate ? [-Math.PI / 2, Math.PI / 2] : [0, 0]}
           >
             <AbstractCarPlaceholder color={color} />
           </PresentationControls>
         </Stage>
       </Suspense>
-      <OrbitControls makeDefault enableZoom={true} enablePan={false} minPolarAngle={0} maxPolarAngle={Math.PI / 2} />
+      <OrbitControls 
+        makeDefault 
+        enableZoom={enableZoom} 
+        enableRotate={enableRotate}
+        enablePan={false} 
+        minPolarAngle={0} 
+        maxPolarAngle={Math.PI / 2}
+        autoRotate={autoRotate}
+        autoRotateSpeed={1.5}
+      />
     </Canvas>
   );
 }
