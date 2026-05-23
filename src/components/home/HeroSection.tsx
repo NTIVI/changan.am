@@ -5,8 +5,11 @@ import { HeroCar } from "../3d/HeroCar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "@/lib/translations";
 
 export function HeroSection() {
+  const { t } = useTranslation();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -47,7 +50,7 @@ export function HeroSection() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/25 text-red-400 text-xs font-bold uppercase tracking-widest"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Премиальный дилер в Ереване</span>
+            <span>{t("hero.tag")}</span>
           </motion.div>
 
           {/* Staggered big headline */}
@@ -55,17 +58,17 @@ export function HeroSection() {
             variants={itemVariants}
             className="text-5xl md:text-7xl font-black tracking-tighter leading-[1.05]"
           >
-            CHANGAN <br />
+            {t("hero.title1")} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-400 to-amber-500">
-              Будущее
-            </span> в Армении
+              {t("hero.titleAccent")}
+            </span> {t("hero.title2")}
           </motion.h1>
 
           <motion.p 
             variants={itemVariants}
             className="text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-xl"
           >
-            Откройте новые грани динамики, премиального технологического комфорта и интеллектуальной безопасности с автомобилями CHANGAN.
+            {t("hero.desc")}
           </motion.p>
 
           {/* CTA actions */}
@@ -75,14 +78,14 @@ export function HeroSection() {
           >
             <Link href="/cars">
               <Button className="h-14 px-8 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-bold text-base transition-all shadow-lg shadow-red-500/15 hover:shadow-red-500/30 flex items-center gap-2 hover:scale-[1.03]">
-                <span>Смотреть модели</span>
+                <span>{t("hero.btnModels")}</span>
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>
 
             <Link href="/cars">
               <Button variant="outline" className="h-14 px-8 rounded-2xl border-gray-800 bg-white/5 hover:bg-white/10 hover:border-gray-700 text-white font-bold text-base transition-all">
-                <span>Запись на Тест-драйв</span>
+                <span>{t("hero.btnTestDrive")}</span>
               </Button>
             </Link>
           </motion.div>
@@ -93,16 +96,16 @@ export function HeroSection() {
             className="grid grid-cols-3 gap-6 pt-6 border-t border-gray-900"
           >
             <div>
-              <div className="text-2xl font-black text-white">5 лет</div>
-              <div className="text-xs text-gray-500 font-medium">Официальной гарантии</div>
+              <div className="text-2xl font-black text-white">{t("hero.metric1Val")}</div>
+              <div className="text-xs text-gray-550 font-medium">{t("hero.metric1Lbl")}</div>
             </div>
             <div>
-              <div className="text-2xl font-black text-white">0%</div>
-              <div className="text-xs text-gray-500 font-medium">Выгодный кредит</div>
+              <div className="text-2xl font-black text-white">{t("hero.metric2Val")}</div>
+              <div className="text-xs text-gray-550 font-medium">{t("hero.metric2Lbl")}</div>
             </div>
             <div>
-              <div className="text-2xl font-black text-white">24/7</div>
-              <div className="text-xs text-gray-500 font-medium">Сервисная поддержка</div>
+              <div className="text-2xl font-black text-white">{t("hero.metric3Val")}</div>
+              <div className="text-xs text-gray-550 font-medium">{t("hero.metric3Lbl")}</div>
             </div>
           </motion.div>
         </motion.div>
@@ -112,7 +115,7 @@ export function HeroSection() {
           {/* Subtle rotation hint */}
           <div className="absolute bottom-6 right-6 z-20 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/45 border border-gray-800 text-xs text-gray-400 font-semibold pointer-events-none backdrop-blur-sm animate-pulse">
             <Star className="w-3.5 h-3.5 text-amber-500" />
-            <span>Вращайте авто мышкой</span>
+            <span>{t("hero.rotateHint")}</span>
           </div>
 
           <div className="w-full h-full relative">

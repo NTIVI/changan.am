@@ -7,6 +7,7 @@ import { useAppStore } from "@/lib/store";
 import { X, DoorClosed, Key, Eye, HelpCircle, Check, ShoppingBag, CreditCard, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useTranslation, translateText } from "@/lib/translations";
 
 interface CarModal3DProps {
   car: Car | null;
@@ -17,6 +18,7 @@ type Trim = "Base" | "Comfort" | "Premium";
 
 export function CarModal3D({ car, onClose }: CarModal3DProps) {
   const addToCart = useAppStore((state) => state.addToCart);
+  const { t, language } = useTranslation();
   
   // Interactive 3D states
   const [selectedColor, setSelectedColor] = useState<CarColor | null>(null);
@@ -75,10 +77,10 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-500">
-                  {car.type}
+                  {translateText(car.type, language)}
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  Выпуск {car.year}
+                <span className="text-xs text-gray-555 dark:text-gray-400">
+                  {t("modal.releaseYear")} {car.year}
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl font-black text-black dark:text-white tracking-tight">
@@ -106,7 +108,7 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
                 className={`flex items-center gap-2 rounded-xl transition-all ${doorsOpen ? 'bg-red-600 hover:bg-red-700 text-white border-transparent' : 'border-gray-200 dark:border-gray-800'}`}
               >
                 <DoorClosed className="w-4 h-4" />
-                <span className="text-xs font-semibold">Двери</span>
+                <span className="text-xs font-semibold">{t("modal.doors")}</span>
               </Button>
 
               {/* Hood Toggle */}
@@ -116,7 +118,7 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
                 className={`flex items-center gap-2 rounded-xl transition-all ${hoodOpen ? 'bg-red-600 hover:bg-red-700 text-white border-transparent' : 'border-gray-200 dark:border-gray-800'}`}
               >
                 <Key className="w-4 h-4" />
-                <span className="text-xs font-semibold">Капот</span>
+                <span className="text-xs font-semibold">{t("modal.hood")}</span>
               </Button>
 
               {/* Lights Toggle */}
@@ -126,7 +128,7 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
                 className={`flex items-center gap-2 rounded-xl transition-all ${lightsOn ? 'bg-red-600 hover:bg-red-700 text-white border-transparent' : 'border-gray-200 dark:border-gray-800'}`}
               >
                 <Sparkles className="w-4 h-4" />
-                <span className="text-xs font-semibold">Фары</span>
+                <span className="text-xs font-semibold">{t("modal.lights")}</span>
               </Button>
 
               {/* View Perspective Toggle */}
@@ -137,7 +139,7 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
               >
                 <Eye className="w-4 h-4 text-red-500" />
                 <span className="text-xs font-semibold">
-                  {viewMode === "exterior" ? "Салон" : "Кузов"}
+                  {viewMode === "exterior" ? t("modal.interior") : t("modal.exterior")}
                 </span>
               </Button>
 
@@ -147,7 +149,7 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
                   <button
                     key={c.hex}
                     onClick={() => setSelectedColor(c)}
-                    title={c.name}
+                    title={translateText(c.name, language)}
                     className={`w-6 h-6 rounded-full border transition-all ${activeColor.hex === c.hex ? 'scale-115 ring-2 ring-red-500' : 'opacity-70 hover:opacity-100'}`}
                     style={{ backgroundColor: c.hex }}
                   />
@@ -157,11 +159,11 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
           </div>
 
           {/* Right Info Panel (30%) */}
-          <div className="lg:col-span-3 p-6 md:p-8 flex flex-col justify-between max-h-[85vh] lg:max-h-none overflow-y-auto">
+          <div className="lg:col-span-3 p-6 md:p-8 flex flex-col justify-between max-h-[85vh] lg:max-h-none overflow-y-auto text-left">
             <div className="space-y-6">
               {/* Price section */}
               <div>
-                <span className="text-xs text-gray-500 dark:text-gray-400 block mb-1">Ориентировочная стоимость</span>
+                <span className="text-xs text-gray-550 dark:text-gray-400 block mb-1">{t("modal.priceLabel")}</span>
                 <div className="text-3xl font-black text-red-600 dark:text-red-500 tracking-tight">
                   {currentPrice.toLocaleString()} AMD
                 </div>
@@ -169,13 +171,13 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
 
               {/* Trims Selector */}
               <div>
-                <h4 className="text-sm font-bold text-black dark:text-white mb-3">Комплектация</h4>
+                <h4 className="text-sm font-bold text-black dark:text-white mb-3">{t("modal.trimLabel")}</h4>
                 <div className="grid grid-cols-3 gap-2">
                   {(["Base", "Comfort", "Premium"] as Trim[]).map((t) => (
                     <button
                       key={t}
                       onClick={() => setSelectedTrim(t)}
-                      className={`py-2 text-xs font-bold rounded-xl border transition-all ${selectedTrim === t ? 'border-red-500 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-500' : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
+                      className={`py-2 text-xs font-bold rounded-xl border transition-all ${selectedTrim === t ? 'border-red-500 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-500 font-extrabold' : 'border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-450 hover:bg-gray-50 dark:hover:bg-gray-900'}`}
                     >
                       {t}
                     </button>
@@ -185,43 +187,43 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
 
               {/* Specifications Grid */}
               <div>
-                <h4 className="text-sm font-bold text-black dark:text-white mb-3">Технические характеристики</h4>
+                <h4 className="text-sm font-bold text-black dark:text-white mb-3">{t("modal.techSpecs")}</h4>
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between py-2 border-b border-gray-150 dark:border-gray-850">
-                    <span className="text-gray-500 dark:text-gray-400">Двигатель</span>
-                    <span className="font-semibold text-black dark:text-white">{car.specs.engine || "2.0L Turbo"}</span>
+                    <span className="text-gray-500 dark:text-gray-400">{t("modal.specEngine")}</span>
+                    <span className="font-semibold text-black dark:text-white">{translateText(car.specs.engine || "2.0L Turbo", language)}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-gray-150 dark:border-gray-850">
-                    <span className="text-gray-500 dark:text-gray-400">Мощность</span>
-                    <span className="font-semibold text-black dark:text-white">{car.specs.power}</span>
+                    <span className="text-gray-500 dark:text-gray-400">{t("modal.specPower")}</span>
+                    <span className="font-semibold text-black dark:text-white">{translateText(car.specs.power, language)}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-gray-150 dark:border-gray-850">
-                    <span className="text-gray-500 dark:text-gray-400">Трансмиссия</span>
-                    <span className="font-semibold text-black dark:text-white">{car.specs.transmission || "8-АКПП"}</span>
+                    <span className="text-gray-500 dark:text-gray-400">{t("modal.specTransmission")}</span>
+                    <span className="font-semibold text-black dark:text-white">{translateText(car.specs.transmission || "8-АКПП", language)}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-gray-150 dark:border-gray-850">
-                    <span className="text-gray-500 dark:text-gray-400">Привод</span>
-                    <span className="font-semibold text-black dark:text-white">{car.drive}</span>
+                    <span className="text-gray-500 dark:text-gray-400">{t("modal.specDrive")}</span>
+                    <span className="font-semibold text-black dark:text-white">{translateText(car.drive, language)}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-gray-150 dark:border-gray-850">
-                    <span className="text-gray-500 dark:text-gray-400">Разгон до 100 км/ч</span>
-                    <span className="font-semibold text-black dark:text-white">{car.specs.acceleration}</span>
+                    <span className="text-gray-500 dark:text-gray-400">{t("modal.specAccel")}</span>
+                    <span className="font-semibold text-black dark:text-white">{translateText(car.specs.acceleration, language)}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-gray-150 dark:border-gray-850">
-                    <span className="text-gray-500 dark:text-gray-400">Расход топлива</span>
-                    <span className="font-semibold text-black dark:text-white">{car.specs.consumption}</span>
+                    <span className="text-gray-550 dark:text-gray-400">{t("modal.specConsump")}</span>
+                    <span className="font-semibold text-black dark:text-white">{translateText(car.specs.consumption, language)}</span>
                   </div>
                 </div>
               </div>
 
               {/* Premium Features List */}
               <div>
-                <h4 className="text-sm font-bold text-black dark:text-white mb-2.5">Особенности</h4>
+                <h4 className="text-sm font-bold text-black dark:text-white mb-2.5">{t("modal.featuresLabel")}</h4>
                 <ul className="space-y-1.5">
                   {car.features.map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400">
                       <Check className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
-                      <span>{f}</span>
+                      <span>{translateText(f, language)}</span>
                     </li>
                   ))}
                 </ul>
@@ -235,15 +237,16 @@ export function CarModal3D({ car, onClose }: CarModal3DProps) {
                 className="w-full flex items-center justify-center gap-2 h-12 rounded-xl bg-red-600 hover:bg-red-700 dark:bg-red-550 dark:hover:bg-red-600 text-white font-bold transition-all shadow-lg shadow-red-500/10 hover:shadow-red-500/20"
               >
                 <ShoppingBag className="w-4 h-4" />
-                <span>Добавить в корзину</span>
+                <span>{t("modal.addToCart")}</span>
               </Button>
 
               <Button
                 variant="outline"
+                onClick={handleAddToCart} // Connect to cart for standard premium checkouts
                 className="w-full flex items-center justify-center gap-2 h-12 rounded-xl border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-bold hover:bg-gray-50 dark:hover:bg-gray-900"
               >
                 <CreditCard className="w-4 h-4" />
-                <span>Оформить в кредит</span>
+                <span>{t("modal.applyCredit")}</span>
               </Button>
             </div>
           </div>

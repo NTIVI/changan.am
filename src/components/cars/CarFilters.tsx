@@ -2,6 +2,7 @@
 
 import { Search, SlidersHorizontal, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation, translateText } from "@/lib/translations";
 
 interface CarFiltersProps {
   search: string;
@@ -28,6 +29,8 @@ export function CarFilters({
   sortBy,
   setSortBy,
 }: CarFiltersProps) {
+  const { t, language } = useTranslation();
+
   const bodyTypes = ["Все", "SUV", "Седан", "Кроссовер", "Пикап", "Минивэн"];
   const drives = ["Все", "FWD", "AWD"];
 
@@ -40,7 +43,7 @@ export function CarFilters({
           <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
           <input
             type="text"
-            placeholder="Поиск по названию модели (например, UNI-V)..."
+            placeholder={t("cars.searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-black/25 text-black dark:text-white placeholder-gray-400 border border-gray-200 dark:border-gray-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm font-medium"
@@ -55,10 +58,10 @@ export function CarFilters({
             onChange={(e) => setSortBy(e.target.value)}
             className="w-full pl-12 pr-8 py-3 bg-gray-50 dark:bg-black/25 text-black dark:text-white border border-gray-200 dark:border-gray-800 rounded-2xl focus:outline-none focus:ring-2 focus:ring-red-500 transition-all text-sm font-medium appearance-none"
           >
-            <option value="none">Без сортировки</option>
-            <option value="price-asc">Сначала дешевле</option>
-            <option value="price-desc">Сначала дороже</option>
-            <option value="power-desc">Самые мощные</option>
+            <option value="none">{t("cars.sortNone")}</option>
+            <option value="price-asc">{t("cars.sortPriceAsc")}</option>
+            <option value="price-desc">{t("cars.sortPriceDesc")}</option>
+            <option value="power-desc">{t("cars.sortPowerDesc")}</option>
           </select>
         </div>
       </div>
@@ -70,7 +73,7 @@ export function CarFilters({
         {/* Body Types selector */}
         <div className="lg:col-span-2 space-y-2">
           <label className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
-            Тип кузова
+            {t("cars.filterBodyType")}
           </label>
           <div className="flex flex-wrap gap-2">
             {bodyTypes.map((type) => (
@@ -83,7 +86,7 @@ export function CarFilters({
                     : "border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900"
                 }`}
               >
-                {type}
+                {translateText(type, language)}
               </button>
             ))}
           </div>
@@ -92,7 +95,7 @@ export function CarFilters({
         {/* Drive Type */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
-            Тип привода
+            {t("cars.filterDriveType")}
           </label>
           <div className="flex gap-2">
             {drives.map((d) => (
@@ -105,7 +108,7 @@ export function CarFilters({
                     : "border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900"
                 }`}
               >
-                {d}
+                {translateText(d, language)}
               </button>
             ))}
           </div>
@@ -114,7 +117,7 @@ export function CarFilters({
         {/* Price Slider */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-wider">
-            <span>Макс. цена</span>
+            <span>{t("cars.filterMaxPrice")}</span>
             <span className="text-red-500 normal-case">{maxPrice.toLocaleString()} AMD</span>
           </div>
           <input

@@ -9,9 +9,11 @@ import { Trash2, ArrowLeft, CreditCard, BadgeCheck, CheckCircle } from "lucide-r
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslation, translateText } from "@/lib/translations";
 
 export default function CartPage() {
   const { user, profile } = useAuth();
+  const { t, language } = useTranslation();
   
   // Zustand State hooks
   const cart = useAppStore((state) => state.cart);
@@ -60,11 +62,11 @@ export default function CartPage() {
       <main className="flex-grow pt-28 pb-20 max-w-7xl mx-auto px-6 md:px-12 w-full">
         <Link href="/cars" className="inline-flex items-center text-red-650 hover:text-red-700 mb-8 font-bold text-xs uppercase tracking-wider">
           <ArrowLeft className="w-4 h-4 mr-1.5" />
-          <span>Вернуться в каталог моделей</span>
+          <span>{t("cart.backToCatalog")}</span>
         </Link>
         
-        <h1 className="text-4xl md:text-5xl font-black text-black dark:text-white tracking-tighter mb-10">
-          Ваша корзина
+        <h1 className="text-4xl md:text-5xl font-black text-black dark:text-white tracking-tighter mb-10 text-left">
+          {t("cart.title")}
         </h1>
 
         {checkoutSuccess ? (
@@ -77,38 +79,38 @@ export default function CartPage() {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </div>
             
-            <h2 className="text-2xl font-black text-black dark:text-white mb-2">Заказ успешно оформлен!</h2>
+            <h2 className="text-2xl font-black text-black dark:text-white mb-2">{t("cart.successTitle")}</h2>
             <p className="text-gray-555 dark:text-gray-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
-              Ваш запрос передан официальному дилеру CHANGAN Armenia. Менеджер свяжется с вами по указанному в профиле номеру в течение 15 минут.
+              {t("cart.successDesc")}
             </p>
 
             <div className="p-4 rounded-xl bg-gray-50 dark:bg-black/30 border border-gray-150 dark:border-gray-850 inline-block mb-8">
-              <span className="text-xs text-gray-400 block mb-0.5">Номер последнего заказа</span>
+              <span className="text-xs text-gray-400 block mb-0.5">{t("cart.lastOrderNum")}</span>
               <span className="font-mono font-bold text-sm text-red-500">{placedOrderId}</span>
             </div>
 
             <div>
               <Link href="/profile">
                 <Button className="h-11 px-6 rounded-xl bg-red-650 hover:bg-red-750 text-white font-bold text-xs uppercase tracking-wider shadow-md">
-                  Перейти в личный кабинет
+                  {t("cart.toCabinet")}
                 </Button>
               </Link>
             </div>
           </motion.div>
         ) : cart.length === 0 ? (
           <div className="text-center py-20 bg-white dark:bg-[#09090a] rounded-3xl border border-gray-150 dark:border-gray-850 shadow-md">
-            <h2 className="text-xl font-extrabold mb-3 text-black dark:text-white">Корзина пуста</h2>
+            <h2 className="text-xl font-extrabold mb-3 text-black dark:text-white">{t("cart.emptyTitle")}</h2>
             <p className="text-gray-550 dark:text-gray-400 mb-8 max-w-md mx-auto text-sm leading-relaxed">
-              Вы еще не добавили ни одного автомобиля. Выберите модель из модельного ряда и нажмите кнопку «В корзину».
+              {t("cart.emptyDesc")}
             </p>
             <Link href="/cars">
               <Button className="h-11 px-6 rounded-xl bg-red-650 hover:bg-red-750 text-white font-bold text-xs uppercase tracking-wider">
-                Перейти в каталог
+                {t("cart.toCatalog")}
               </Button>
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 text-left">
             
             {/* Cart list (66%) */}
             <div className="lg:col-span-2 space-y-6">
@@ -125,7 +127,7 @@ export default function CartPage() {
                     <div className="flex justify-between items-start mb-2">
                       <div>
                         <div className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-0.5">
-                          {item.car.type}
+                          {translateText(item.car.type, language)}
                         </div>
                         <h3 className="text-lg font-black text-black dark:text-white tracking-tight">{item.car.name}</h3>
                       </div>
@@ -139,10 +141,10 @@ export default function CartPage() {
                     </div>
                     
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-xs text-gray-400 font-medium">Цвет:</span>
+                      <span className="text-xs text-gray-400 font-medium">{t("cart.colorLabel")}</span>
                       <div className="w-4.5 h-4.5 rounded-full border border-gray-300 dark:border-gray-700 shrink-0" style={{ backgroundColor: item.color.hex }} />
                       <span className="text-xs font-bold text-gray-650 dark:text-gray-300">
-                        {item.color.name}
+                        {translateText(item.color.name, language)}
                       </span>
                     </div>
 
@@ -155,7 +157,7 @@ export default function CartPage() {
               
               <div className="flex justify-end pt-2">
                 <Button variant="ghost" onClick={clearCart} className="text-xs font-bold text-gray-400 hover:text-red-500">
-                  Очистить корзину
+                  {t("cart.clearCart")}
                 </Button>
               </div>
             </div>
@@ -163,16 +165,16 @@ export default function CartPage() {
             {/* Checkout Options Panel (33%) */}
             <div className="bg-white dark:bg-[#09090a] p-8 rounded-3xl border border-gray-150 dark:border-gray-850 h-fit shadow-lg sticky top-28 space-y-8">
               <div>
-                <h3 className="text-xl font-black text-black dark:text-white mb-1">Ваш заказ</h3>
+                <h3 className="text-xl font-black text-black dark:text-white mb-1">{t("cart.yourOrder")}</h3>
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">
-                  CHANGAN Armenia Official Dealership
+                  {t("cart.dealership")}
                 </p>
               </div>
               
               {/* Payment Selectors */}
               <div className="space-y-3">
                 <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
-                  Способ оплаты
+                  {t("cart.paymentMethod")}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -184,7 +186,7 @@ export default function CartPage() {
                     }`}
                   >
                     <BadgeCheck className="w-4.5 h-4.5" />
-                    <span>Наличные</span>
+                    <span>{t("cart.paymentCash")}</span>
                   </button>
                   <button
                     onClick={() => setPaymentMethod("credit")}
@@ -195,26 +197,26 @@ export default function CartPage() {
                     }`}
                   >
                     <CreditCard className="w-4.5 h-4.5" />
-                    <span>В кредит</span>
+                    <span>{t("cart.paymentCredit")}</span>
                   </button>
                 </div>
               </div>
 
               {/* Price Details */}
               <div className="space-y-4 pt-4 border-t border-gray-150 dark:border-gray-850">
-                <div className="flex justify-between text-xs font-semibold text-gray-500 dark:text-gray-400">
-                  <span>Автомобили ({cart.length})</span>
+                <div className="flex justify-between text-xs font-semibold text-gray-550 dark:text-gray-400">
+                  <span>{t("cart.carsCount")} ({cart.length})</span>
                   <span>{total.toLocaleString()} AMD</span>
                 </div>
-                <div className="flex justify-between text-xs font-semibold text-gray-500 dark:text-gray-400">
-                  <span>Доставка в Ереване</span>
-                  <span className="text-green-500">Бесплатно</span>
+                <div className="flex justify-between text-xs font-semibold text-gray-550 dark:text-gray-400">
+                  <span>{t("cart.delivery")}</span>
+                  <span className="text-green-500">{t("cart.deliveryFree")}</span>
                 </div>
                 
                 <hr className="border-gray-150 dark:border-gray-850" />
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-base font-extrabold text-black dark:text-white">Итого</span>
+                  <span className="text-base font-extrabold text-black dark:text-white">{t("cart.total")}</span>
                   <span className="text-2xl font-black text-red-650 dark:text-red-500 tracking-tight">
                     {total.toLocaleString()} AMD
                   </span>
@@ -226,10 +228,10 @@ export default function CartPage() {
                   onClick={handleCheckout}
                   className="w-full h-12 rounded-xl text-xs font-bold uppercase tracking-wider bg-red-650 hover:bg-red-750 text-white shadow-lg shadow-red-500/10 hover:shadow-red-500/25 transition-all"
                 >
-                  Оформить заказ
+                  {t("cart.placeOrder")}
                 </Button>
                 <p className="text-[10px] text-center text-gray-450 leading-normal">
-                  Оформляя заказ, вы подтверждаете согласие на обработку персональных данных и передачу дилеру.
+                  {t("cart.gdprText")}
                 </p>
               </div>
             </div>

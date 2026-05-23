@@ -1,29 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Cpu, Leaf, HeadphonesIcon, BadgeCheck, Flame, Compass } from "lucide-react";
+import { Shield, Cpu, Leaf, HeadphonesIcon } from "lucide-react";
+import { useTranslation } from "@/lib/translations";
 
 export function FeaturesSection() {
+  const { t } = useTranslation();
+
   const features = [
     {
       icon: <Shield className="w-7 h-7 text-red-500" />,
-      title: "Высочайший Уровень Безопасности",
-      desc: "Максимальные 5 звезд в тестах C-NCAP. Автомобили укомплектованы усиленной стальной рамой и комплексом активного предотвращения столкновений.",
+      title: t("features.f1Title"),
+      desc: t("features.f1Desc"),
     },
     {
       icon: <Cpu className="w-7 h-7 text-red-500" />,
-      title: "Интеллектуальные Помощники",
-      desc: "Адаптивный круиз-контроль (ACC), автоматический парковщик (APA 5.0), круговой обзор 360° с 3D-режимом и ассистенты слепых зон.",
+      title: t("features.f2Title"),
+      desc: t("features.f2Desc"),
     },
     {
       icon: <Leaf className="w-7 h-7 text-red-500" />,
-      title: "Двигатели BlueCore",
-      desc: "Энергоэффективные турбодвигатели нового поколения обеспечивают ураганный разгон при рекордно низком расходе топлива.",
+      title: t("features.f3Title"),
+      desc: t("features.f3Desc"),
     },
     {
       icon: <HeadphonesIcon className="w-7 h-7 text-red-500" />,
-      title: "Официальный Премиум Сервис",
-      desc: "Полноценная гарантия 5 лет или 150,000 км пробега в Армении, поддержка на дорогах 24/7 и оригинальные сертифицированные запчасти.",
+      title: t("features.f4Title"),
+      desc: t("features.f4Desc"),
     },
   ];
 
@@ -34,13 +37,13 @@ export function FeaturesSection() {
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-red-650 dark:text-red-500 font-bold text-xs uppercase tracking-widest bg-red-50 dark:bg-red-950/20 px-4 py-1.5 rounded-full inline-block mb-4">
-            Превосходство Технологий
+            {t("features.tag")}
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white tracking-tighter mb-5">
-            Преимущества CHANGAN
+            {t("features.title")}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg font-light leading-relaxed">
-            Инновационные решения в каждой детали. Мы разрабатываем интеллектуальные, надежные и эффектные автомобили для тех, кто не соглашается на компромиссы.
+            {t("features.desc")}
           </p>
         </div>
 

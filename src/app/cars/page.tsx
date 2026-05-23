@@ -10,8 +10,11 @@ import { CarFilters } from "@/components/cars/CarFilters";
 import { CarModal3D } from "@/components/cars/CarModal3D";
 import { Compass } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslation } from "@/lib/translations";
 
 export default function CarsPage() {
+  const { t } = useTranslation();
+  
   // Filters and search states
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState("");
@@ -60,7 +63,7 @@ export default function CarsPage() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-500 text-xs font-bold uppercase tracking-widest mb-6"
           >
             <Compass className="w-4 h-4" />
-            <span>Интерактивный Каталог CHANGAN</span>
+            <span>{t("cars.catalogTag")}</span>
           </motion.div>
           
           <motion.h1
@@ -69,7 +72,7 @@ export default function CarsPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-6xl font-black tracking-tighter mb-6 text-black dark:text-white"
           >
-            Модельный Ряд CHANGAN
+            {t("cars.catalogTitle")}
           </motion.h1>
           
           <motion.p
@@ -78,7 +81,7 @@ export default function CarsPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base md:text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed"
           >
-            Кликните на интересующий автомобиль, чтобы открыть интерактивное модальное окно. Рассматривайте 3D-модель, переключайте цвета кузова, открывайте двери и изучайте характеристики в реальном времени.
+            {t("cars.catalogDesc")}
           </motion.p>
         </div>
 

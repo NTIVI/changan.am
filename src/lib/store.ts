@@ -5,6 +5,7 @@ import { Car, CarColor, CartItem, Order } from "@/types";
 interface AppState {
   cart: CartItem[];
   orders: Order[];
+  language: 'ru' | 'en' | 'am';
   
   // Cart Actions
   addToCart: (car: Car, color: CarColor) => void;
@@ -22,12 +23,14 @@ interface AppState {
   ) => Order;
   updateOrderStatus: (orderId: string, status: Order['status']) => void;
   setOrders: (orders: Order[]) => void;
+  setLanguage: (lang: 'ru' | 'en' | 'am') => void;
 }
 
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       cart: [],
+      language: "ru",
       orders: [
         // Premium default mock orders for rich admin dashboard experience
         {
@@ -115,7 +118,9 @@ export const useAppStore = create<AppState>()(
         orders: state.orders.map((o) => o.id === orderId ? { ...o, status } : o)
       })),
 
-      setOrders: (orders) => set({ orders })
+      setOrders: (orders) => set({ orders }),
+
+      setLanguage: (lang) => set({ language: lang })
     }),
     {
       name: "changan-armenia-store",

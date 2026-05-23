@@ -1,33 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star, MessageSquare, Quote } from "lucide-react";
+import { Star, Quote } from "lucide-react";
+import { useTranslation } from "@/lib/translations";
 
 export function TestimonialsSection() {
+  const { t } = useTranslation();
+
   const reviews = [
     {
-      name: "Артур Варданян",
-      car: "Changan UNI-V",
+      name: t("testimonials.t1Author"),
+      owner: t("testimonials.t1Owner"),
       rating: 5,
-      text: "Автомобиль превзошел все ожидания! Спортивный режим SUPER RACE дарит невероятные эмоции, а выдвижной спойлер привлекает взгляды всего Еревана. Очень доволен покупкой.",
-      date: "Апрель 2026",
-      avatar: "АВ"
+      text: t("testimonials.t1Text"),
+      date: t("testimonials.t1Date"),
+      avatar: "ԱՎ" // Armenian/Universal style
     },
     {
-      name: "Елена Саргсян",
-      car: "Changan CS75 Plus",
+      name: t("testimonials.t2Author"),
+      owner: t("testimonials.t2Owner"),
       rating: 5,
-      text: "Прекрасный семейный внедорожник. Огромная панорамная крыша, невероятно просторный кожаный салон и очень мягкий ход. Обслуживание в салоне Исакова было на высшем уровне!",
-      date: "Май 2026",
-      avatar: "ЕС"
+      text: t("testimonials.t2Text"),
+      date: t("testimonials.t2Date"),
+      avatar: "ԵՍ"
     },
     {
-      name: "Давид Симонян",
-      car: "Changan UNI-T",
+      name: t("testimonials.t3Author"),
+      owner: t("testimonials.t3Owner"),
       rating: 5,
-      text: "Дизайн этой машины просто космический. Футуристичный салон, отличная динамика двигателя BlueCore и очень удобный автопарковщик. Расход по городу радует - около 7 литров.",
-      date: "Май 2026",
-      avatar: "ДС"
+      text: t("testimonials.t3Text"),
+      date: t("testimonials.t3Date"),
+      avatar: "ԴՍ"
     }
   ];
 
@@ -38,13 +41,13 @@ export function TestimonialsSection() {
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-red-650 dark:text-red-500 font-bold text-xs uppercase tracking-widest bg-red-50 dark:bg-red-950/20 px-4 py-1.5 rounded-full inline-block mb-4">
-            Отзывы Владельцев
+            {t("testimonials.tag")}
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-black dark:text-white tracking-tighter mb-5">
-            Слово Клиентам CHANGAN
+            {t("testimonials.title")}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg font-light leading-relaxed">
-            Узнайте, почему автовладельцы в Армении выбирают инновационный модельный ряд CHANGAN для своих ежедневных поездок и путешествий.
+            {t("testimonials.desc")}
           </p>
         </div>
 
@@ -60,7 +63,7 @@ export function TestimonialsSection() {
               className="bg-white dark:bg-[#09090a] p-8 rounded-3xl border border-gray-150 dark:border-gray-850 hover:shadow-xl transition-all relative overflow-hidden"
             >
               {/* Quote background watermark */}
-              <Quote className="absolute -top-4 -right-4 w-28 h-28 text-gray-50 dark:text-black/10 z-0 pointer-events-none" />
+              <Quote className="absolute -top-4 -right-4 w-28 h-28 text-gray-55/5 dark:text-black/10 z-0 pointer-events-none" />
 
               <div className="relative z-10 space-y-6">
                 {/* Rating stars */}
@@ -79,7 +82,7 @@ export function TestimonialsSection() {
 
                 {/* User details */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-red-50 dark:bg-red-950/20 text-red-650 dark:text-red-500 font-black text-sm flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-red-50 dark:bg-red-950/20 text-red-655 dark:text-red-500 font-black text-sm flex items-center justify-center shrink-0">
                     {r.avatar}
                   </div>
                   <div>
@@ -87,7 +90,7 @@ export function TestimonialsSection() {
                       {r.name}
                     </h4>
                     <span className="text-xs text-gray-400 block font-medium">
-                      Владелец {r.car} • {r.date}
+                      {r.owner} • {r.date}
                     </span>
                   </div>
                 </div>

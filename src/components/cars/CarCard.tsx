@@ -5,6 +5,7 @@ import { useAppStore } from "@/lib/store";
 import { motion } from "framer-motion";
 import { Sparkles, ShoppingBag, Eye, Zap, Gauge, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation, translateText } from "@/lib/translations";
 
 interface CarCardProps {
   car: Car;
@@ -13,6 +14,7 @@ interface CarCardProps {
 
 export function CarCard({ car, onView3D }: CarCardProps) {
   const addToCart = useAppStore((state) => state.addToCart);
+  const { t, language } = useTranslation();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation(); // Avoid triggering card modal click
@@ -33,7 +35,7 @@ export function CarCard({ car, onView3D }: CarCardProps) {
       {/* Visual Badge overlay */}
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
         <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white shadow-md shadow-red-500/10">
-          {car.type}
+          {translateText(car.type, language)}
         </span>
         {car.drive === "AWD" && (
           <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-gray-900/80 dark:bg-black/60 text-white backdrop-blur-sm">
@@ -59,7 +61,7 @@ export function CarCard({ car, onView3D }: CarCardProps) {
             className="flex items-center gap-1.5 h-10 px-4 rounded-full bg-white text-black hover:bg-red-500 hover:text-white transition-colors"
           >
             <Eye className="w-4 h-4" />
-            <span className="text-xs font-bold">3D Обзор</span>
+            <span className="text-xs font-bold">{t("cars.3dViewBtn")}</span>
           </Button>
         </div>
       </div>
@@ -77,7 +79,7 @@ export function CarCard({ car, onView3D }: CarCardProps) {
 
           {/* Pricing indicator */}
           <div className="text-xl font-extrabold text-red-600 dark:text-red-500 tracking-tight mb-4">
-            от {car.price.toLocaleString()} AMD
+            {t("cars.fromPrice")} {car.price.toLocaleString()} AMD
           </div>
 
           {/* Core tech specs grid */}
@@ -85,22 +87,22 @@ export function CarCard({ car, onView3D }: CarCardProps) {
             {/* Spec 1: Power */}
             <div className="flex flex-col items-center">
               <Zap className="w-4 h-4 text-red-500 mb-1 shrink-0" />
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-tight block">Мощность</span>
-              <span className="text-xs font-bold text-black dark:text-white">{car.specs.power}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-tight block">{t("cars.specPower")}</span>
+              <span className="text-xs font-bold text-black dark:text-white">{translateText(car.specs.power, language)}</span>
             </div>
 
             {/* Spec 2: Acceleration */}
             <div className="flex flex-col items-center">
               <Gauge className="w-4 h-4 text-red-500 mb-1 shrink-0" />
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-tight block">Разгон</span>
-              <span className="text-xs font-bold text-black dark:text-white">{car.specs.acceleration}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-tight block">{t("cars.specAcceleration")}</span>
+              <span className="text-xs font-bold text-black dark:text-white">{translateText(car.specs.acceleration, language)}</span>
             </div>
 
             {/* Spec 3: Consumption */}
             <div className="flex flex-col items-center">
               <Compass className="w-4 h-4 text-red-500 mb-1 shrink-0" />
-              <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-tight block">Расход</span>
-              <span className="text-xs font-bold text-black dark:text-white">{car.specs.consumption}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-tight block">{t("cars.specConsumption")}</span>
+              <span className="text-xs font-bold text-black dark:text-white">{translateText(car.specs.consumption, language)}</span>
             </div>
           </div>
         </div>
@@ -112,7 +114,7 @@ export function CarCard({ car, onView3D }: CarCardProps) {
             onClick={() => onView3D(car)}
             className="w-full flex items-center justify-center gap-1.5 h-10 rounded-xl border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-xs font-bold hover:bg-gray-50 dark:hover:bg-gray-900"
           >
-            <span>Детали</span>
+            <span>{t("cars.detailsBtn")}</span>
           </Button>
 
           <Button
@@ -120,7 +122,7 @@ export function CarCard({ car, onView3D }: CarCardProps) {
             className="w-full flex items-center justify-center gap-1.5 h-10 rounded-xl bg-red-600 hover:bg-red-700 dark:bg-red-550 dark:hover:bg-red-600 text-white text-xs font-bold shadow-md shadow-red-500/5 hover:shadow-red-500/15"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
-            <span>В корзину</span>
+            <span>{t("cars.toCartBtn")}</span>
           </Button>
         </div>
       </div>
