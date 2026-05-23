@@ -65,12 +65,12 @@ export function IntroPreloader({ onComplete }: { onComplete: () => void }) {
           {/* Background Ambient Premium Dark Glow (Deep Red/Amber Brand Accent) */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.06)_0%,rgba(0,0,0,1)_85%)] pointer-events-none" />
 
-          {/* Visual Elements Container */}
-          <div className="relative w-full max-w-5xl aspect-[16/7] flex items-center justify-center px-4">
+          {/* Visual Elements Container - Responsive aspect ratios for mobile compatibility */}
+          <div className="relative w-full max-w-5xl aspect-[4/3] sm:aspect-[16/7] flex items-center justify-center px-6 sm:px-4 scale-105 sm:scale-100 transition-all duration-500">
             
-            {/* SVG Overlay for Lights */}
+            {/* SVG Overlay for Lights - Scales beautifully on mobile */}
             <svg
-              className="absolute inset-0 w-full h-full pointer-events-none select-none z-0"
+              className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 scale-[1.25] sm:scale-100 transition-transform duration-700"
               viewBox="0 0 1000 400"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +258,7 @@ export function IntroPreloader({ onComplete }: { onComplete: () => void }) {
                       className="mix-blend-screen"
                     />
                     
-                    {/* Left Anamorphic Lens Flare (High-end movie camera horizontal light strip) */}
+                    {/* Left Anamorphic Lens Flare */}
                     <motion.ellipse
                       cx="300"
                       cy="190"
@@ -315,22 +315,22 @@ export function IntroPreloader({ onComplete }: { onComplete: () => void }) {
               </AnimatePresence>
             </svg>
 
-            {/* Central Typography - CHANGAN + ARMENIA Text Overlay (Mature / Serious styling) */}
-            <div className="relative z-10 flex flex-col items-center select-none text-center">
-              <h1 className="overflow-hidden flex flex-wrap justify-center text-4xl sm:text-6xl md:text-7xl font-bold tracking-[0.55em] text-white font-syncopate uppercase pl-[0.55em]">
+            {/* Central Typography - CHANGAN + ARMENIA Text Overlay (Fully Responsive Mobile-Safe Layout) */}
+            <div className="relative z-10 flex flex-col items-center select-none text-center px-4 w-full">
+              <h1 className="overflow-hidden flex flex-nowrap justify-center text-[1.65rem] sm:text-5xl md:text-7xl font-bold tracking-[0.38em] sm:tracking-[0.55em] text-white font-syncopate uppercase pl-[0.38em] sm:pl-[0.55em] whitespace-nowrap w-full">
                 {"CHANGAN".split("").map((letter, idx) => (
                   <motion.span
                     key={idx}
-                    initial={{ y: 60, opacity: 0 }}
+                    initial={{ y: 50, opacity: 0 }}
                     animate={step >= 1 ? { y: 0, opacity: 1 } : {}}
                     transition={{
-                      duration: 0.9,
-                      delay: idx * 0.08,
+                      duration: 0.8,
+                      delay: idx * 0.07,
                       ease: [0.16, 1, 0.3, 1], // Premium easeOutExo
                     }}
                     style={{
                       textShadow: step >= 3 
-                        ? "0 0 35px rgba(255,255,255,0.5), 0 0 10px rgba(255,255,255,0.2)" 
+                        ? "0 0 35px rgba(255,255,255,0.45), 0 0 10px rgba(255,255,255,0.2)" 
                         : "0 0 15px rgba(255,255,255,0.05)",
                     }}
                     className="inline-block transition-all duration-750"
@@ -340,14 +340,14 @@ export function IntroPreloader({ onComplete }: { onComplete: () => void }) {
                 ))}
               </h1>
 
-              {/* Elegant ARMENIA Subtitle */}
+              {/* Elegant ARMENIA Subtitle - Scales cleanly on all mobile screens */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={step >= 1 ? { opacity: 0.75, y: 0 } : {}}
-                transition={{ duration: 1.4, delay: 0.8, ease: "easeOut" }}
-                className="mt-5 text-[10px] sm:text-xs md:text-sm font-orbitron tracking-[1.4em] text-[#cccccc] font-light pl-[1.4em] select-none"
+                transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+                className="mt-4 sm:mt-5 text-[8px] sm:text-xs md:text-sm font-orbitron tracking-[0.9em] sm:tracking-[1.4em] text-[#cccccc] font-light pl-[0.9em] sm:pl-[1.4em] select-none whitespace-nowrap"
                 style={{
-                  textShadow: "0 0 10px rgba(255,255,255,0.1)",
+                  textShadow: "0 0 8px rgba(255,255,255,0.1)",
                 }}
               >
                 ARMENIA
@@ -355,13 +355,13 @@ export function IntroPreloader({ onComplete }: { onComplete: () => void }) {
             </div>
           </div>
 
-          {/* Minimalist Skip Button in bottom corner */}
+          {/* Minimalist Skip Button in bottom corner - Styled safely for mobile screens */}
           <motion.button
             initial={{ opacity: 0 }}
-            animate={step >= 1 ? { opacity: 0.3 } : {}}
+            animate={step >= 1 ? { opacity: 0.4 } : {}}
             whileHover={{ opacity: 0.8, scale: 1.01 }}
             onClick={handleSkip}
-            className="absolute bottom-8 right-8 px-5 py-2.5 border border-white/10 rounded-full text-[9px] font-orbitron tracking-widest text-[#a3a3a3] hover:text-white hover:border-white/30 backdrop-blur-md transition-all duration-300 z-[999999]"
+            className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 px-4 py-2 border border-white/10 rounded-full text-[8px] font-orbitron tracking-widest text-[#a3a3a3] hover:text-white hover:border-white/30 backdrop-blur-md transition-all duration-300 z-[999999]"
           >
             SKIP &rarr;
           </motion.button>

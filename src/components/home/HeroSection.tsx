@@ -128,11 +128,11 @@ export function HeroSection() {
         </motion.div>
 
         {/* Right Side 3D Canvas Box (6 cols) */}
-        <div className="lg:col-span-6 h-[400px] md:h-[600px] relative w-full flex items-center justify-center cursor-grab active:cursor-grabbing">
+        <div className="lg:col-span-6 h-[320px] sm:h-[400px] md:h-[600px] relative w-full flex items-center justify-center cursor-grab active:cursor-grabbing">
           
           {/* Circular Glowing Ring behind the Car */}
-          <div className="absolute w-[350px] h-[350px] rounded-full border border-neutral-800/40 bg-radial-gradient from-transparent to-neutral-950/80 pointer-events-none z-0 flex items-center justify-center">
-            <div className="w-[280px] h-[280px] rounded-full border border-neutral-900/30 dashed animate-spin-slow" />
+          <div className="absolute w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] rounded-full border border-neutral-800/40 bg-radial-gradient from-transparent to-neutral-950/80 pointer-events-none z-0 flex items-center justify-center">
+            <div className="w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] rounded-full border border-neutral-900/30 dashed animate-spin-slow" />
           </div>
 
           {/* Rotate Hint Badge */}
