@@ -9,15 +9,9 @@ export function IntroWrapper({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    // Check if session storage indicates they've already seen the intro
-    const hasSeen = sessionStorage.getItem("changan-intro-seen");
-    if (hasSeen === "true") {
-      setShowIntro(false);
-    }
   }, []);
 
   const handleComplete = () => {
-    sessionStorage.setItem("changan-intro-seen", "true");
     setShowIntro(false);
   };
 
